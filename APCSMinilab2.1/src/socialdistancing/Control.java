@@ -4,27 +4,30 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 public class Control {
+		Frame view;
 		String title = "Social Distance Simulation";
 		//Model and View
 		ArrayList<Person> model; //the community of Person objects	
-		Simulator view; //JPanel graphics window
 		
 		// counters for "this" simulation instance
 		public int numInfected = 0;
 		public int numDied= 0;
 		
-		protected Wall vWall1 = new Wall(550, 0, "SocialDistancingImages/wall2.png", true);
-		protected Wall vWall2 = new Wall(200, 0, "SocialDistancingImages/wall2.png", true);
-		protected Wall vWall3 = new Wall(550, 400, "SocialDistancingImages/wall2.png", true);
-		protected Wall vWall4 = new Wall(200, 400, "SocialDistancingImages/wall2.png", true);
+		protected Wall vWall1 = new Wall(550, 0, "src/SocialDistancingImages/wall2.png", true);
+		protected Wall vWall2 = new Wall(200, 0, "src/SocialDistancingImages/wall2.png", true);
+		protected Wall vWall3 = new Wall(550, 400, "src/SocialDistancingImages/wall2.png", true);
+		protected Wall vWall4 = new Wall(200, 400, "src/SocialDistancingImages/wall2.png", true);
 		
-		protected Wall hWall1 = new Wall(620, 160, "SocialDistancingImages/wall1.png", false);
-		protected Wall hWall2 = new Wall(-25, 160, "SocialDistancingImages/wall1.png", false);
-		protected Wall hWall3 = new Wall(620, 400, "SocialDistancingImages/wall1.png", false);
-		protected Wall hWall4 = new Wall(-25, 400, "SocialDistancingImages/wall1.png", false);
+		protected Wall hWall1 = new Wall(620, 160, "src/SocialDistancingImages/wall1.png", false);
+		protected Wall hWall2 = new Wall(-25, 160, "src/SocialDistancingImages/wall1.png", false);
+		protected Wall hWall3 = new Wall(620, 400, "src/SocialDistancingImages/wall1.png", false);
+		protected Wall hWall4 = new Wall(-25, 400, "src/SocialDistancingImages/wall1.png", false);
+		
+		private Wall[] w = {vWall1, vWall2, vWall3, vWall4, hWall1, hWall2, hWall3, hWall4};
 		
 		// simulation control values
 		public int  numPeople;			
@@ -106,7 +109,7 @@ public class Control {
 		 */
 		public void runSimulation() {
 			//Setup to the Simulation Panel/Frame
-			Simulator view = new Simulator(this, title);
+			Frame view = new Frame(this, title);
 			
 			//Setup the People
 			model = new ArrayList<Person>();
@@ -164,16 +167,9 @@ public class Control {
 		
 		public void paintWalls(Graphics g)
 		{
-			g.drawImage(vWall1.getImage(), vWall1.getX(), vWall1.getY(), null);
-			g.drawImage(vWall2.getImage(), vWall2.getX(), vWall2.getY(), null);
-			g.drawImage(vWall3.getImage(), vWall3.getX(), vWall3.getY(), null);
-			g.drawImage(vWall4.getImage(), vWall4.getX(), vWall4.getY(), null);
 			
-			//draws horizontal walls
-			g.drawImage(hWall1.getImage(), hWall1.getX(), hWall1.getY(), null);
-			g.drawImage(hWall2.getImage(), hWall2.getX(), hWall2.getY(), null);
-			g.drawImage(hWall3.getImage(), hWall3.getX(), hWall3.getY(), null);
-			g.drawImage(hWall4.getImage(), hWall4.getX(), hWall4.getY(), null);
+			for(Wall w1 : w)
+				g.drawImage(w1.getImage(), w1.getX(), w1.getY(), view);
 			
 			//sets text color
 			g.setColor(Color.BLACK);

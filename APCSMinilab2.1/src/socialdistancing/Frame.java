@@ -28,6 +28,7 @@ public class Frame extends JPanel implements ActionListener{
 	Control control; //
 	Timer timer; //Event control	
 	int time = 0; //Track time as the simulation runs
+	Settings sets;
 	
 	/* constructor will setup our main Graphic User Interface - a simple Frame! */
 	public Frame(Control ctl, String title) {
@@ -58,6 +59,12 @@ public class Frame extends JPanel implements ActionListener{
 		
 		// frame becomes visible
 		frame.setVisible(true);		
+	}
+	
+	public void simulation() {
+		//new Simulation for each run from Settings panel
+		control = new Control(sets); // sets are critical for Simulation
+		control.runSimulation();
 	}
 	
 	/* This invoked by Timer per period in milliseconds in timerValue  */
